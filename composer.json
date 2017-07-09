@@ -1,0 +1,21 @@
+{
+    "name": "yaro/apidocs",
+    "description": "Api documentation generator for Laravel 5",
+    "keywords": ["laravel", "api", "docs", "documentation"],
+    "require": {
+        "illuminate/support": "5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yaro\\ApiDocs\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yaro",
+            "email": "12fcv4@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
