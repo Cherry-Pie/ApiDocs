@@ -111,9 +111,6 @@ class ApiDocs
                 }
                 
             }
-            if (in_array($chunk, $disabledNamespaces)) {
-                unset($chunks[$index]);
-            }
                
             $key = implode('.', $chunks);
             
