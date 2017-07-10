@@ -27,8 +27,7 @@ class ApiDocs
         $endpoints = [];
         
         foreach ($this->router->getRoutes() as $route) {
-            $action = $this->getRouteParam($route, 'action.uses');
-            if (!$this->isPrefixedRoute($route) || $this->isClosureRoute($action)) {
+            if (!$this->isPrefixedRoute($route) || $this->isClosureRoute($route)) {
                 continue;
             }
             
@@ -45,6 +44,7 @@ class ApiDocs
                 continue;
             }
             
+        
             list($title, $description, $params) = $docBlockInfo;
             $key = $this->generateEndpointKey($class);
             
@@ -73,8 +73,10 @@ class ApiDocs
         return preg_match($regexp, $this->getRouteParam($route, 'uri'));
     } // end isPrefixedRoute
     
-    private function isClosureRoute($action)
+    private function isClosureRoute($route)
     {
+        $action = $this->getRouteParam($route, 'action.uses');
+        
         return is_object($action);
     } // end isClosureRoute
     
