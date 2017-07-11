@@ -46,3 +46,8 @@ a.json-placeholder {
 a.json-placeholder:hover {
   text-decoration: underline;
 }
+
+
+#apidocs-api a.json-string {
+    color: #ace46b;
+}
