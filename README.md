@@ -66,6 +66,8 @@ Route::get('/docs', function() {
 ## TODO
 - add `global headers` section.
 - generate plain html page with all documentation info.
+- show raw response.
+- fullsize block with response.
 
 
 ## License
