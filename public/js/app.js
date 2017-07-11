@@ -1,9 +1,13 @@
 
 $(document).ready(function(){
+    $('#documenter_nav').tendina({activeMenu: '.current'});
+    
     var hash = window.location.hash;
     var a = $('a[href="' + hash + '"]', '#scroll');
     if (a.length) {
         $('a[href="'+ hash +'"]', '#scroll')[0].click();
+    } else {
+        window.location.hash = $($("a[href^='#']")[0]).attr('href');
     }
     $('section.method').each(function() {
         var waypoint = new Waypoint({
@@ -12,29 +16,37 @@ $(document).ready(function(){
                 var id = this.element.attributes['id'].nodeValue;
                 //
                 $('a', '#scroll').removeClass('current');
-                $('ol', '#scroll').removeClass('open');
+                $('ul', '#scroll').removeClass('open');
                 var a = $('a[href="#' + id + '"]', '#scroll');
                 a.addClass('current');
     
-                var ol = a.closest('ol');
-                if (ol.length) {
-                    openOl(ol);
+                var ul = a.closest('ul');
+                if (ul.length) {
+                    openUl(ul);
                 }
-                if (a.next().is('ol')) {
+                if (a.next().is('ul')) {
                     a.next().addClass('open');
                 }
-                window.location.hash = id;
+                history.replaceState(null, null, document.location.pathname + '#' + id);
             }
         })
     });
+    $("a[href^='#']").on('click', function() {
+        var a = this; 
+        console.log($(a).attr('href').replace('.', '\\.').replace(':', '\\:'));
+        $('html, body').animate({
+            scrollTop: $($(a).attr('href').replace(new RegExp(/\./, 'g'), '\\.').replace(new RegExp(/\:/, 'g'), '\\:')).offset().top 
+        });
+        return false;
+    });
 });
 
-function openOl(ol)
+function openUl(ul)
 {
-    ol.addClass('open');
-    var ol = ol.parent().closest('ol');
-    if (ol.length) {
-        openOl(ol);
+    ul.addClass('open');
+    var ul = ul.parent().closest('ul');
+    if (ul.length) {
+        openUl(ul);
     }
 }
 

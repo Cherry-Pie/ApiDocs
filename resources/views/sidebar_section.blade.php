@@ -5,11 +5,11 @@
 
     <li>
         <a href="javascript:void(0);" title="{{ $name }}">{{ $name }}</a>
-        <ol>
+        <ul>
             @foreach ($endpoints as $name => $endpoint)
                 @include('apidocs::sidebar_section', ['endpoints' => $endpoint, 'name' => $name])
             @endforeach
-        </ol>
+        </ul>
     </li>
 
 @else

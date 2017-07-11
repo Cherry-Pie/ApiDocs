@@ -91,6 +91,8 @@
         </script>
         
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        
+        <script type="text/javascript" src="/vendor/yaro/apidocs/js/tendina.min.js"></script>
         <script type="text/javascript" src="/vendor/yaro/apidocs/js/jquery.waypoints.min.js"></script>
 
         <script type="text/javascript" src="/vendor/yaro/apidocs/js/jquery.json-viewer.js"></script>
