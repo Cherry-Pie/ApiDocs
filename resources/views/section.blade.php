@@ -78,8 +78,12 @@
                     </form>
 
                     <div class="method-example-part">
-                        <div class="method-example-endpoint">
-                            <pre class="language-none"><code class="language-none response-content"></code></pre>
+                        <div class="method-example-endpoint" style="position: relative;">
+                            <a href="javascript:void(0)" class="btn btn-default btn-xs" style="position: absolute; right: 3px; top: 23px;" onclick="changeSourceView(this)">
+                                <span class="cr"><i class="cr-icon fa fa-eye"></i></span>
+                            </a>
+                            <pre class="language-none"><code class="language-none response-content response-highlighted"></code></pre>
+                            <pre class="language-none" style="display:none"><code class="language-none response-content response-raw"></code></pre>
                         </div>
                         <div class="method-example-endpoint">
                             <pre class="language-none"><code class="language-none response-headers"></code></pre>

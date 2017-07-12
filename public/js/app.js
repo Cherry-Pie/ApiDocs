@@ -27,7 +27,7 @@ $(document).ready(function(){
                 if (a.next().is('ul')) {
                     a.next().addClass('open');
                 }
-                history.replaceState(null, null, document.location.pathname + '#' + id);
+                window.history.replaceState(null, null, document.location.pathname + '#' + id);
             }
         })
     });
@@ -76,7 +76,8 @@ function sendRequest(form)
         data : $form.serializeArray(),
         success : function(response, status, xhr) {
             $btn.text('Send').attr('disabled', false);
-            $section.find('.method-example-endpoint code.response-content').jsonViewer(response); 
+            $section.find('.method-example-endpoint code.response-content.response-highlighted').jsonViewer(response); 
+            $section.find('.method-example-endpoint code.response-content.response-raw').html(typeof response == 'object' ? JSON.stringify(response): String(response));  
             $section.find('.method-example-endpoint code.response-headers').text(xhr.getAllResponseHeaders());
         },
         error : function(xhr) {
@@ -94,7 +95,8 @@ function sendRequest(form)
                 return;
             }
             var $frame = $('<iframe class="supa" style="width:100%; height:350px;">');
-            $section.find('.method-example-endpoint code.response-content').html($frame);
+            $section.find('.method-example-endpoint code.response-content.response-highlighted').html($frame);
+            $section.find('.method-example-endpoint code.response-content.response-raw').html(typeof content == 'object' ? JSON.stringify(content): String(content)); 
             setTimeout(function() {
                 var doc = $frame[0].contentWindow.document;
                 var $body = $('body', doc);
@@ -142,3 +144,18 @@ function changeTab(ident)
     $('.method-tab.'+ ident).show();
 }
 
+function changeSourceView(ctx)
+{
+    var $a = $(ctx);
+    var $parent = $a.parent();
+    $parent.find('pre.language-none').hide();
+    if ($a.hasClass('show-source-block')) {
+        $a.removeClass('show-source-block').addClass('show-highlighted-block');
+        $parent.find('.response-highlighted').parent().show();
+        $a.find('.fa-eye-slash').removeClass('fa-eye-slash').addClass('fa-eye');
+    } else {
+        $a.removeClass('show-highlighted-block').addClass('show-source-block');
+        $parent.find('.response-raw').parent().show();
+        $a.find('.fa-eye').removeClass('fa-eye').addClass('fa-eye-slash');
+    }
+}
