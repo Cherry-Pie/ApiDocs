@@ -10,7 +10,8 @@ $(document).ready(function(){
         window.location.hash = $($("a[href^='#']")[0]).attr('href');
     }
     $('section.method').each(function() {
-        var waypoint = new Waypoint({
+        /** global: Waypoint */
+        new Waypoint({
             element : this,
             handler : function() {
                 var id = this.element.attributes['id'].nodeValue;
@@ -33,7 +34,6 @@ $(document).ready(function(){
     });
     $("a[href^='#']").on('click', function() {
         var a = this; 
-        console.log($(a).attr('href').replace('.', '\\.').replace(':', '\\:'));
         $('html, body').animate({
             scrollTop: $($(a).attr('href').replace(new RegExp(/\./, 'g'), '\\.').replace(new RegExp(/\:/, 'g'), '\\:')).offset().top 
         });

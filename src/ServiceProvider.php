@@ -27,7 +27,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->mergeConfigFrom($configPath, 'yaro.apidocs');
         
         $this->app->singleton('yaro.apidocs', function($app) {
-            return app()->make(ApiDocs::class);
+            return $app->make(ApiDocs::class);
         });
     } // end register
     
