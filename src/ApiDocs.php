@@ -134,7 +134,7 @@ class ApiDocs
     {
         foreach ($docs as &$line) {
             $line = preg_replace('~\s*\*\s*~', '', $line);
-            $line = preg_replace('~/~', '', $line);
+            $line = preg_replace('~^/$~', '', $line);
         }
         $docs = array_values(array_filter($docs));
         
