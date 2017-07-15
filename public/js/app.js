@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     $('#documenter_nav').tendina({activeMenu: '.current'});
     
@@ -34,6 +33,7 @@ $(document).ready(function(){
     });
     $("a[href^='#']").on('click', function() {
         var a = this; 
+        console.log($(a).attr('href').replace('.', '\\.').replace(':', '\\:'));
         $('html, body').animate({
             scrollTop: $($(a).attr('href').replace(new RegExp(/\./, 'g'), '\\.').replace(new RegExp(/\:/, 'g'), '\\:')).offset().top 
         });
@@ -77,7 +77,7 @@ function sendRequest(form)
         success : function(response, status, xhr) {
             $btn.text('Send').attr('disabled', false);
             $section.find('.method-example-endpoint code.response-content.response-highlighted').jsonViewer(response); 
-            $section.find('.method-example-endpoint code.response-content.response-raw').html(typeof response == 'object' ? JSON.stringify(response): String(response));  
+            $section.find('.method-example-endpoint code.response-content.response-raw').text(typeof response == 'object' ? JSON.stringify(response): String(response));  
             $section.find('.method-example-endpoint code.response-headers').text(xhr.getAllResponseHeaders());
         },
         error : function(xhr) {
@@ -96,7 +96,7 @@ function sendRequest(form)
             }
             var $frame = $('<iframe class="supa" style="width:100%; height:350px;">');
             $section.find('.method-example-endpoint code.response-content.response-highlighted').html($frame);
-            $section.find('.method-example-endpoint code.response-content.response-raw').html(typeof content == 'object' ? JSON.stringify(content): String(content)); 
+            $section.find('.method-example-endpoint code.response-content.response-raw').text(typeof content == 'object' ? JSON.stringify(content): String(content)); 
             setTimeout(function() {
                 var doc = $frame[0].contentWindow.document;
                 var $body = $('body', doc);
@@ -159,3 +159,4 @@ function changeSourceView(ctx)
         $a.find('.fa-eye').removeClass('fa-eye').addClass('fa-eye-slash');
     }
 }
+
