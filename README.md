@@ -67,6 +67,7 @@ Route::get('/docs', function() {
 - add `global headers` section.
 - generate plain html page with all documentation info.
 - fullsize block with response.
+- generate blueprint for https://apiblueprint.org.
 
 
 ## License
