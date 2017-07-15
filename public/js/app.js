@@ -33,7 +33,6 @@ $(document).ready(function(){
     });
     $("a[href^='#']").on('click', function() {
         var a = this; 
-        console.log($(a).attr('href').replace('.', '\\.').replace(':', '\\:'));
         $('html, body').animate({
             scrollTop: $($(a).attr('href').replace(new RegExp(/\./, 'g'), '\\.').replace(new RegExp(/\:/, 'g'), '\\:')).offset().top 
         });
