@@ -39,13 +39,7 @@ class ApiDocs
                 continue;
             }
             
-            $docBlockInfo = $this->getRouteDocBlock($class, $method);
-            if (!$docBlockInfo) {
-                continue;
-            }
-            
-        
-            list($title, $description, $params) = $docBlockInfo;
+            list($title, $description, $params) = $this->getRouteDocBlock($class, $method);
             $key = $this->generateEndpointKey($class);
             
             $endpoints[$key][] = [
@@ -83,18 +77,21 @@ class ApiDocs
     private function getRouteDocBlock($class, $method)
     {
         $reflector = new ReflectionClass($class);
+        
+        $title = implode(' ', $this->splitCamelCaseToWords($method));
+        $title = ucfirst(strtolower($title));
+        $description = '';
+        $params = [];
             
         $docs = explode("\n", $reflector->getMethod($method)->getDocComment());
         $docs = array_filter($docs);
         if (!$docs) {
-            return false;
+            return [$title, $description, $params];
         }
         
         $docs = $this->filterDocBlock($docs);
         
         $title = array_shift($docs);
-        $description = '';
-        $params = [];
         
         $checkForLongDescription = true;
         foreach ($docs as $line) {
