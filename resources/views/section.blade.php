@@ -100,7 +100,7 @@
                         
                         <div class="form-group except" style="height: 30px;">
                             <div class="col-sm-1 pull-right">
-                                <a class="btn btn-default" href="javascript:void(0);" role="button" onclick="$(this).closest('.form-group').before($('#header-row-template').html())">
+                                <a class="btn btn-default" href="javascript:void(0);" role="button" onclick="addNewHeaderInput(this)">
                                     <span class="cr"><i class="cr-icon fa fa-plus"></i></span>
                                 </a>
                             </div>

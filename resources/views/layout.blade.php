@@ -15,6 +15,8 @@
         <link rel="stylesheet" type="text/css" href="/vendor/yaro/apidocs/css/style.css" media="all">
         <link rel="stylesheet" type="text/css" href="/vendor/yaro/apidocs/css/responsive.css">
         <link rel="stylesheet" type="text/css" href="/vendor/yaro/apidocs/css/jquery.json-viewer.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/yaro/apidocs/css/easyautocomplete.css">
+        
     </head>
     <body id="apidocs-api">
         <div id="page">
@@ -25,6 +27,7 @@
                             <a class="header__block header__brand" href="javascript:void(0);"> <h1><img src="{{ config('yaro.apidocs.logo') }}"></h1> </a>
                         </div>
                         <div class="col-lg-10 col-sm-10 hidden-xs">
+                            @include('apidocs::partials.menu_top')                            
                         </div>
                     </div>
                 </div>
@@ -97,6 +100,9 @@
 
         <script type="text/javascript" src="/vendor/yaro/apidocs/js/jquery.json-viewer.js"></script>
         <script type="text/javascript" src="/vendor/yaro/apidocs/js/bootstrap-notify.min.js"></script> 
+        
+        <script type="text/javascript" src="/vendor/yaro/apidocs/js/easyautocomplete.min.js"></script>
+        
         <script type="text/javascript" src="/vendor/yaro/apidocs/js/app.js"></script>
 
     </body>

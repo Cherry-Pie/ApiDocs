@@ -1,3 +1,8 @@
+
+$(window).on('resize', function() {
+    $('.global-headers-section').width($('.method-copy').width() - 30);
+});
+
 $(document).ready(function(){
     $('#documenter_nav').tendina({activeMenu: '.current'});
     
@@ -38,7 +43,73 @@ $(document).ready(function(){
         });
         return false;
     });
-});
+    
+    autocompleteHeaders();
+	
+}); 
+
+function autocompleteHeaders()
+{
+	$('.req-header').easyAutocomplete({
+		data: [
+			'Accept',
+			'Accept-Charset',
+			'Accept-Encoding',
+			'Accept-Language',
+			'Accept-Datetime',
+			'Access-Control-Request-Method',
+			'Access-Control-Request-Headers',
+			'Authorization',
+			'Cache-Control',
+			'Connection',
+			'Cookie',
+			'Content-Length',
+			'Content-MD5',
+			'Content-Type',
+			'Content-Disposition',
+			'Date',
+			'Expect',
+			'Forwarded',
+			'From',
+			'Host',
+			'If-Match',
+			'If-Modified-Since',
+			'If-None-Match',
+			'If-Range',
+			'If-Unmodified-Since',
+			'Max-Forwards',
+			'Origin',
+			'Pragma',
+			'Proxy-Authorization',
+			'Range',
+			'Referer',
+			'TE',
+			'User-Agent',
+			'Upgrade',
+			'Via',
+			'Warning',
+			'X-Requested-With',
+			'DNT',
+			'X-Forwarded-For',
+			'X-Forwarded-Host',
+			'X-Forwarded-Proto',
+			'Front-End-Https',
+			'X-Http-Method-Override',
+			'X-ATT-DeviceId',
+			'X-Wap-Profile',
+			'Proxy-Connection',
+			'X-UIDH',
+			'X-Csrf-Token',
+			'X-Request-ID',
+			'X-Correlation-ID',
+		],
+		list: {
+	        match: {
+	            enabled: true
+	        }
+	    },
+	});
+}
 
 function openUl(ul)
 {
@@ -61,6 +132,13 @@ function sendRequest(form)
     
     var headers = {};
     $section.find('.headers-form .form-group').not('.except').each(function(key, element) {
+        var $el = $(element);
+        if ($el.find('.req-header-active').is(':checked')) {
+            var header = $el.find('.req-header').val();
+            headers[header] = $el.find('.req-header-value').val();
+        }
+    });
+    $('.global-headers-form .form-group').not('.except').each(function(key, element) {
         var $el = $(element);
         if ($el.find('.req-header-active').is(':checked')) {
             var header = $el.find('.req-header').val();
@@ -156,6 +234,25 @@ function changeSourceView(ctx)
         $a.removeClass('show-highlighted-block').addClass('show-source-block');
         $parent.find('.response-raw').parent().show();
         $a.find('.fa-eye').removeClass('fa-eye').addClass('fa-eye-slash');
+    }
+}
+
+function addNewHeaderInput(ctx)
+{
+	$(ctx).closest('.form-group').before($('#header-row-template').html());
+	autocompleteHeaders();
+}
+
+function showGlobalHeaders(ctx)
+{
+    var $li = $(ctx).parent();
+    if ($li.hasClass('dx-nav-active')) {
+        $li.removeClass('dx-nav-active');
+        $('.global-headers-section').slideUp();
+    } else {
+        $li.addClass('dx-nav-active');
+        $(window).trigger('resize')
+        $('.global-headers-section').slideDown();
     }
 }
 

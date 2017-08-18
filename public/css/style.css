@@ -2125,3 +2125,14 @@ label>span {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+.global-headers-section {
+    display: none;
+    padding: 30px 30px 30px 0;
+    height: 400px;
+    top: 60px;
+    position: fixed;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: 630px;
+    background: #ffffff;
+}
