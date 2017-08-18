@@ -1,4 +1,7 @@
 # ApiDocs Generator
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Cherry-Pie/ApiDocs/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Cherry-Pie/ApiDocs/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/Cherry-Pie/ApiDocs/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Cherry-Pie/ApiDocs/build-status/master)
+
 
 L5 API Documentation generator based upon DocBlock comments.
 
