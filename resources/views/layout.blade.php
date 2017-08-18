@@ -73,7 +73,7 @@
                 </div>
                 
                 <div class="col-sm-1">
-                    <a class="btn btn-default" href="javascript:void(0);" role="button" onclick="$(this).closest('.form-group').remove()">
+                    <a class="btn btn-default" href="javascript:void(0);" role="button" onclick="removeNewHeaderInput(this)">
                             <span class="cr"><i class="cr-icon fa fa-times"></i></span></a>
                 </div>
             </div>

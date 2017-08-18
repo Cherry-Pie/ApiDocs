@@ -45,8 +45,16 @@ $(document).ready(function(){
     });
     
     autocompleteHeaders();
-	
+
+    setHeadersCheckboxEvents();
 }); 
+
+function setHeadersCheckboxEvents()
+{
+	$('input[type=checkbox]', '.global-headers-form').change(function() {
+	    recalculateGlobalHeaders();
+	});
+}
 
 function autocompleteHeaders()
 {
@@ -240,7 +248,28 @@ function changeSourceView(ctx)
 function addNewHeaderInput(ctx)
 {
 	$(ctx).closest('.form-group').before($('#header-row-template').html());
+	setHeadersCheckboxEvents();
 	autocompleteHeaders();
+	recalculateGlobalHeaders();
+}
+
+function removeNewHeaderInput(ctx)
+{
+	$(ctx).closest('.form-group').remove();
+	recalculateGlobalHeaders();
+}
+
+function recalculateGlobalHeaders()
+{
+	var count = 0;
+	$('.global-headers-form .form-group').not('.except').each(function(key, element) {
+        var $el = $(element);
+        if ($el.find('.req-header-active').is(':checked')) {
+            count++;
+        }
+    });
+    
+	$('.global-headers-count').text(count);
 }
 
 function showGlobalHeaders(ctx)

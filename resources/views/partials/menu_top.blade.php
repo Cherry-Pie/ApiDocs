@@ -5,7 +5,10 @@
 		<ul class="dx-nav-0 dx-nav-0-docs">
 
 			<li class="dx-nav-0-item">
-				<a class="dx-nav-0-link" href="javascript:void(0);" onclick="showGlobalHeaders(this)">Global Headers</a>
+				<a class="dx-nav-0-link" href="javascript:void(0);" onclick="showGlobalHeaders(this)">
+				    <span class="label label-info global-headers-count">0</span>
+				    Global Headers
+			    </a>
 			</li>
 
 		</ul>
