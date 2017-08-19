@@ -14,10 +14,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             __DIR__ . '/../config/apidocs.php' => config_path('yaro.apidocs.php'),
         ], 'config');
         
-        $this->publishes([
-            __DIR__ . '/../public' => public_path('vendor/yaro/apidocs'),
-        ], 'public');
-        
         $this->app['view']->addNamespace('apidocs', __DIR__ . '/../resources/views');
     } // end boot
 

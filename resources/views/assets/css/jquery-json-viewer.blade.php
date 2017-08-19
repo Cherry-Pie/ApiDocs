@@ -1,3 +1,4 @@
+<style>
 /* Syntax highlighting for JSON objects */
 ul.json-dict, ol.json-array {
   list-style-type: none;
@@ -51,3 +52,4 @@ a.json-placeholder:hover {
 #apidocs-api a.json-string {
     color: #ace46b;
 }
+</style>

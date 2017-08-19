@@ -1,3 +1,4 @@
+<script>
 /*!
 Waypoints - 4.0.1
 Copyright © 2011-2016 Caleb Troughton
@@ -756,3 +757,4 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
   Waypoint.Adapter = NoFrameworkAdapter
 }())
 ;
+</script>

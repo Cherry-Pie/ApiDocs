@@ -1,3 +1,4 @@
+<style>
 /*
  * easy-autocomplete
  * jQuery plugin for autocompletion
@@ -27,3 +28,4 @@
     margin-bottom: 0;
     color: #555;
 }
+</style>

@@ -1,4 +1,4 @@
-
+<script>
 $(window).on('resize', function() {
     $('.global-headers-section').width($('.method-copy').width() - 30);
 });
@@ -284,4 +284,4 @@ function showGlobalHeaders(ctx)
         $('.global-headers-section').slideDown();
     }
 }
-
+</script>
