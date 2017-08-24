@@ -177,7 +177,7 @@ class ApiDocs
         ksort($endpoints);
 
         $sorted = array();
-        foreach($endpoints as $key => $val) {
+        foreach ($endpoints as $key => $val) {
             $this->ins($sorted, explode('.', $key), $val);
         }
         

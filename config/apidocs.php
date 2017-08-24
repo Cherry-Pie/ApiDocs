@@ -29,8 +29,8 @@ return [
     /**
      * API Blueprint related data.
      */
-     'blueprint' => [
-     
+    'blueprint' => [
+ 
         'host' => null,
         
         'title' => 'API Documentation',
@@ -38,7 +38,7 @@ return [
         
         'reference_delimiter' => ' / ',
         'disc' => 'apidocs',
-        
-     ]
+    
+    ],
 
 ];
