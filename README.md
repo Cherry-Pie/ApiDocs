@@ -8,19 +8,17 @@ L5 API Documentation generator based upon DocBlock comments.
 
 ## Installation 
 
-You can install the package through Composer.
+You can install the package through Composer:
 ```bash
 composer require yaro/apidocs
 ```
-You must install this service provider. Make this the very first provider in list.
+Add this service provider and alias to ```config/app.php```:
 ```php
-// config/app.php
 'providers' => [
     //...
     Yaro\ApiDocs\ServiceProvider::class,
     //...
 ]
-
 
 'aliases' => [
     //...
@@ -29,9 +27,21 @@ You must install this service provider. Make this the very first provider in lis
 ]
 ```
 
-Then publish the config and assets files.
+Then publish the config and assets files:
 ```bash
 php artisan vendor:publish --provider="Yaro\ApiDocs\ServiceProvider"
+```
+
+And you should add a disk named snapshots to ```config/filesystems.php``` on which the [blueprint](https://apiblueprint.org) snapshots will be saved:
+```php
+//...
+'disks' => [
+    //...
+    'apidocs' => [
+        'driver' => 'local',
+        'root'   => storage_path('apidocs'),
+    ],
+//...    
 ```
 
 
@@ -65,11 +75,25 @@ Route::get('/docs', function() {
 });
 ```
 
+Additionally you can create [API Blueprint](https://apiblueprint.org) file:
+```php
+ApiDocs::blueprint()->create();
+// or pass snapshot name and/or filesystem disc name
+ApiDocs::blueprint()->create('my-newest-snapshot', 's3-blueprint');
+```
+Or just render its contents without creating file:
+```php
+echo ApiDocs::blueprint()->render();
+```
+Or via ```artisan```:
+```bash
+php artisan apidocs:blueprint-create
+```
+
 
 ## TODO
 - generate plain html page with all documentation info.
 - fullsize block with response.
-- generate blueprint for https://apiblueprint.org.
 
 
 ## License

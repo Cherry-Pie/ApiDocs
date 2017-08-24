@@ -22,8 +22,23 @@ return [
     ],
     
     /**
-     * Image path for logo
+     * Image src for logo.
      */
-    'logo' => '/vendor/yaro/apidocs/images/logo.png',
+    'logo' => '',
+    
+    /**
+     * API Blueprint related data.
+     */
+     'blueprint' => [
+     
+        'host' => null,
+        
+        'title' => 'API Documentation',
+        'introduction' => '',
+        
+        'reference_delimiter' => ' / ',
+        'disc' => 'apidocs',
+        
+     ]
 
 ];

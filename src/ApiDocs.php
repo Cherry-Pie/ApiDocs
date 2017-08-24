@@ -4,23 +4,36 @@ namespace Yaro\ApiDocs;
 
 use ReflectionClass;
 use Illuminate\Routing\Router;
+use Illuminate\Contracts\Config\Repository as Config;
+use Yaro\ApiDocs\Blueprint;
 
 class ApiDocs
 {
     
     private $router;
+    private $config;
     
-    public function __construct(Router $router)
+    public function __construct(Router $router, Config $config)
     {
         $this->router = $router;
+        $this->config = $config;
     } // end __construct
 
     public function show()
     {
         $endpoints = $this->getEndpoints();
+        $endpoints = $this->getSortedEndpoints($endpoints);
         
         return view('apidocs::docs', compact('endpoints'));
     } // end show
+
+    public function blueprint()
+    {
+        $blueprint = app()->make(Blueprint::class);
+        $blueprint->setEndpoints($this->getEndpoints());
+        
+        return $blueprint;
+    } // end blueprint
     
     private function getEndpoints()
     {
@@ -56,12 +69,12 @@ class ApiDocs
             ];
         }
         
-        return $this->getSortedEndpoints($endpoints);
+        return $endpoints;
     } // end getEndpoints
     
     private function isPrefixedRoute($route)
     {
-        $prefix = config('yaro.apidocs.prefix', 'api');
+        $prefix = $this->config->get('yaro.apidocs.prefix', 'api');
         $regexp = '~^'. preg_quote($prefix) .'~';
         
         return preg_match($regexp, $this->getRouteParam($route, 'uri'));
@@ -140,7 +153,7 @@ class ApiDocs
     
     private function generateEndpointKey($class)
     {
-        $disabledNamespaces = config('yaro.apidocs.disabled_namespaces', []);
+        $disabledNamespaces = $this->config->get('yaro.apidocs.disabled_namespaces', []);
         
         $chunks = explode('\\', $class);
         foreach ($chunks as $index => $chunk) {

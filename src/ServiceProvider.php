@@ -2,6 +2,7 @@
 
 namespace Yaro\ApiDocs;
 
+use Yaro\ApiDocs\Commands\BlueprintCreate;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -15,6 +16,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         ], 'config');
         
         $this->app['view']->addNamespace('apidocs', __DIR__ . '/../resources/views');
+        
+        $this->app->bind('command.apidocs:blueprint-create', BlueprintCreate::class);
+        $this->commands([
+            'command.apidocs:blueprint-create',
+        ]);
     } // end boot
 
     public function register()
