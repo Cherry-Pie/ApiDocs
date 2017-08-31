@@ -1519,6 +1519,7 @@ div.drag_bar {
 }
 
 #apidocs-api .method {
+    padding-top: 110px;
     position: relative;
     z-index: 2;
     display: block;

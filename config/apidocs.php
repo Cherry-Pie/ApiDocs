@@ -22,6 +22,21 @@ return [
     ],
     
     /**
+     * Exclude specific routes from documentation. Asterisks may be used to indicate wildcards.
+     */
+     'exclude' => [
+        'classes' => [
+            // 'App\Http\Controllers\*' - exclude all controllers from docs.
+            // 'App\Http\Controllers\MyController@*' - remove all methods for specific controller from docs.
+        ],
+        
+        'routes' => [
+            // 'payment/test',
+            // 'simulate/*',
+        ],
+     ],
+    
+    /**
      * Image src for logo.
      */
     'logo' => '',
@@ -37,6 +52,10 @@ return [
         'introduction' => '',
         
         'reference_delimiter' => ' / ',
+        
+        /**
+         * Filesystem's disc for storing blueprint snapshots.
+         */
         'disc' => 'apidocs',
     
     ],

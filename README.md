@@ -75,6 +75,21 @@ Route::get('/docs', function() {
 });
 ```
 
+To exclude some routes/classes add them to config's ```exclude```. Asterisks may be used to indicate wildcards.
+```php
+'exclude' => [
+    'classes' => [
+        // 'App\Http\Controllers\*' - exclude all controllers from docs.
+        // 'App\Http\Controllers\MyController@*' - remove all methods for specific controller from docs.
+    ],
+    
+    'routes' => [
+        // 'payment/test',
+        // 'simulate/*',
+    ],
+ ],
+```
+
 Additionally you can create [API Blueprint](https://apiblueprint.org) file:
 ```php
 ApiDocs::blueprint()->create();

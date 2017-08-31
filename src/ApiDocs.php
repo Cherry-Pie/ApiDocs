@@ -40,7 +40,7 @@ class ApiDocs
         $endpoints = [];
         
         foreach ($this->router->getRoutes() as $route) {
-            if (!$this->isPrefixedRoute($route) || $this->isClosureRoute($route)) {
+            if (!$this->isPrefixedRoute($route) || $this->isClosureRoute($route) || $this->isExcluded($route)) {
                 continue;
             }
             
@@ -71,6 +71,36 @@ class ApiDocs
         
         return $endpoints;
     } // end getEndpoints
+    
+    private function isExcluded($route)
+    {
+        $uri = $this->getRouteParam($route, 'uri');
+        $actionController = $this->getRouteParam($route, 'action.controller');
+        
+        return $this->isExcludedClass($actionController) || $this->isExcludedRoute($uri);
+    } // end isExcluded
+    
+    private function isExcludedRoute($uri)
+    {
+        foreach ($this->config->get('yaro.apidocs.exclude.routes', []) as $pattern) {
+            if (str_is($pattern, $uri)) {
+                return true;
+            }
+        }
+        
+        return false;
+    } // end isExcludedRoute
+    
+    private function isExcludedClass($actionController)
+    {
+        foreach ($this->config->get('yaro.apidocs.exclude.classes', []) as $pattern) {
+            if (str_is($pattern, $actionController)) {
+                return true;
+            }
+        }
+        
+        return false;
+    } // end isExcludedClass
     
     private function isPrefixedRoute($route)
     {
