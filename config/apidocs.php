@@ -22,6 +22,17 @@ return [
     ],
     
     /**
+     * Options for basic auth middleware.
+     */
+    'auth' => [
+        'enabled' => false,
+    
+        'credentials' => [
+            // ['username', 'password'],
+        ],
+    ],
+    
+    /**
      * Exclude specific routes from documentation. Asterisks may be used to indicate wildcards.
      */
      'exclude' => [

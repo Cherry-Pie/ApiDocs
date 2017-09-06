@@ -3,8 +3,10 @@
 namespace Yaro\ApiDocs;
 
 use Yaro\ApiDocs\Commands\BlueprintCreate;
+use Yaro\ApiDocs\Http\Middleware\BasicAuth;
+use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
-class ServiceProvider extends \Illuminate\Support\ServiceProvider
+class ServiceProvider extends IlluminateServiceProvider
 {
 
     protected $defer = false;
@@ -21,6 +23,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->commands([
             'command.apidocs:blueprint-create',
         ]);
+        
+        $this->addMiddlewareAlias('apidocs.auth.basic', BasicAuth::class);
     } // end boot
 
     public function register()
@@ -32,5 +36,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return $app->make(ApiDocs::class);
         });
     } // end register
+    
+    private function addMiddlewareAlias($name, $class)
+    {
+        $router = $this->app['router'];
+
+        if (method_exists($router, 'aliasMiddleware')) {
+            return $router->aliasMiddleware($name, $class);
+        }
+
+        return $router->middleware($name, $class);
+    }
     
 }

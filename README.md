@@ -75,6 +75,13 @@ Route::get('/docs', function() {
 });
 ```
 
+Also you can force authorization prompt by adding ```apidocs.auth.basic``` middleware. Authorized identites placed under ```apidocs.auth.credentials``` config.
+```php
+Route::get('/docs', function() {
+    return ApiDocs::show();
+})->middleware(['apidocs.auth.basic']);
+```
+
 To exclude some routes/classes add them to config's ```exclude```. Asterisks may be used to indicate wildcards.
 ```php
 'exclude' => [
