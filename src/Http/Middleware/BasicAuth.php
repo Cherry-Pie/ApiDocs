@@ -7,7 +7,7 @@ class BasicAuth
     
     public function handle($request, $next)
     {
-        if ($this->isAuthorized($request)) {
+        if (!$this->isAuthorized($request)) {
             return response('Unauthorized', 401, [
                 'WWW-Authenticate' => 'Basic',
             ]);
