@@ -250,10 +250,10 @@ class ApiDocs
         $route = (array) $route;
         $prefix = chr(0).'*'.chr(0);
         
-        return array_get(
+        return $this->arrayGet(
             $route, 
             $prefix.$param, 
-            array_get($route, $param)
+            $this->arrayGet($route, $param)
         );
     } // end getRouteParam
     
@@ -263,5 +263,25 @@ class ApiDocs
             $this->ins($ary[array_shift($keys)], $keys, $val) :
             $ary = $val;
     } // end ins
+    
+    private function arrayGet($array, $key, $default = null)
+    {
+        if (is_null($key)) {
+            return $array;
+        }
+        
+        if (isset($array[$key])) {
+            return $array[$key];
+        }
+        
+        foreach (explode('.', $key) as $segment) {
+            if (!is_array($array) || ! array_key_exists($segment, $array)) {
+                return $default;
+            }
+            $array = $array[$segment];
+        }
+        
+        return $array;
+    }
     
 }
