@@ -79,6 +79,35 @@
             </div>
         </script>
         
+        <script type="text/template" id="header-global-row-template">
+            <div class="form-group" style="height: 30px;">
+                <div class="col-sm-1">
+                    <div class="checkbox" style="margin-top: -7px;">
+                        <label style="font-size: 2em">
+                            <input type="checkbox" value="1" checked class="req-header-active">
+                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <a class="btn btn-default" href="javascript:void(0);" role="button" onclick="saveGlobalHeader(this)">
+                        <span class="cr"><i class="cr-icon fa fa-save"></i></span>
+                    </a>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control req-header"  placeholder="Header" value="">
+                </div>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control req-header-value"  placeholder="Value" value="">
+                </div>
+                
+                <div class="col-sm-1">
+                    <a class="btn btn-default" href="javascript:void(0);" role="button" onclick="removeGlobalHeaderInput(this)">
+                            <span class="cr"><i class="cr-icon fa fa-times"></i></span></a>
+                </div>
+            </div>
+        </script>
+        
         <script type="text/template" id="preloader-template">
             <div class="preloader">
               <div class="status">

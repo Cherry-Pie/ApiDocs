@@ -247,10 +247,23 @@ function changeSourceView(ctx)
 
 function addNewHeaderInput(ctx)
 {
-	$(ctx).closest('.form-group').before($('#header-row-template').html());
-	setHeadersCheckboxEvents();
-	autocompleteHeaders();
-	recalculateGlobalHeaders();
+    $(ctx).closest('.form-group').before($('#header-row-template').html());
+    setHeadersCheckboxEvents();
+    autocompleteHeaders();
+    recalculateGlobalHeaders();
+}
+
+function addGlobalHeaderInput(ctx)
+{
+    $(ctx).closest('.form-group').before($('#header-global-row-template').html());
+    setHeadersCheckboxEvents();
+    autocompleteHeaders();
+    recalculateGlobalHeaders();
+}
+
+function saveGlobalHeader(ctx)
+{
+    $(ctx).closest('.form-group')
 }
 
 function removeNewHeaderInput(ctx)
