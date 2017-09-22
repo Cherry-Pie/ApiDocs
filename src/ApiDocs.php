@@ -5,6 +5,7 @@ namespace Yaro\ApiDocs;
 use ReflectionClass;
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Http\Request;
 use Yaro\ApiDocs\Blueprint;
 
 class ApiDocs
@@ -12,35 +13,42 @@ class ApiDocs
     
     private $router;
     private $config;
+    private $request;
     
-    public function __construct(Router $router, Config $config)
+    public function __construct(Router $router, Config $config, Request $request)
     {
-        $this->router = $router;
-        $this->config = $config;
+        $this->router  = $router;
+        $this->config  = $config;
+        $this->request = $request;
     } // end __construct
 
-    public function show()
+    public function show($routePrefix = null)
     {
-        $endpoints = $this->getEndpoints();
+        $currentPrefix = $this->request->get('prefix', $this->getRoutePrefix($routePrefix));
+        $endpoints = $this->getEndpoints($currentPrefix);
         $endpoints = $this->getSortedEndpoints($endpoints);
+        $prefixes  = $this->getRoutePrefixes();
         
-        return view('apidocs::docs', compact('endpoints'));
+        return view('apidocs::docs', compact('endpoints', 'prefixes', 'currentPrefix'));
     } // end show
 
-    public function blueprint()
+    public function blueprint($routePrefix = null)
     {
+        $routePrefix = $this->request->get('prefix', $this->getRoutePrefix($routePrefix));
+        
         $blueprint = app()->make(Blueprint::class);
-        $blueprint->setEndpoints($this->getEndpoints());
+        $blueprint->setRoutePrefix($routePrefix);
+        $blueprint->setEndpoints($this->getEndpoints($routePrefix));
         
         return $blueprint;
     } // end blueprint
     
-    private function getEndpoints()
+    private function getEndpoints($routePrefix)
     {
         $endpoints = [];
         
         foreach ($this->router->getRoutes() as $route) {
-            if (!$this->isPrefixedRoute($route) || $this->isClosureRoute($route) || $this->isExcluded($route)) {
+            if (!$this->isPrefixedRoute($route, $routePrefix) || $this->isClosureRoute($route) || $this->isExcluded($route)) {
                 continue;
             }
             
@@ -102,13 +110,29 @@ class ApiDocs
         return false;
     } // end isExcludedClass
     
-    private function isPrefixedRoute($route)
+    private function isPrefixedRoute($route, $routePrefix)
     {
-        $prefix = $this->config->get('yaro.apidocs.prefix', 'api');
-        $regexp = '~^'. preg_quote($prefix) .'~';
+        $regexp = '~^'. preg_quote($routePrefix) .'~';
         
         return preg_match($regexp, $this->getRouteParam($route, 'uri'));
     } // end isPrefixedRoute
+    
+    private function getRoutePrefix($routePrefix)
+    {
+        $prefixes = $this->getRoutePrefixes();
+        
+        return in_array($routePrefix, $prefixes) ? $routePrefix : array_shift($prefixes);
+    }
+    
+    private function getRoutePrefixes()
+    {
+        $prefixes = $this->config->get('yaro.apidocs.prefix', 'api');
+        if (!is_array($prefixes)) {
+            $prefixes = [$prefixes];
+        }
+        
+        return $prefixes;
+    }
     
     private function isClosureRoute($route)
     {

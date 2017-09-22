@@ -13,6 +13,20 @@
 
 		</ul>
 	</div>
+	
+	@if (count($prefixes) > 1)
+	<div class="header__nav--right">
+        <ul class="dx-nav-0 dx-nav-0-tools">
+            @foreach ($prefixes as $prefix)
+            <li class="dx-nav-0-item ">
+                <a class="dx-nav-0-link" href="?prefix={{ $prefix }}">
+                    <span class="{{ $prefix == $currentPrefix ? 'label label-info' : '' }}" style="font-size: 14px; font-weight: 500;">{{ $prefix }}</span>
+                </a>
+            </li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 </div>
 
 <div class="global-headers-section">

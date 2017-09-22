@@ -5,7 +5,7 @@ return [
     /**
      * Prefix of routes, that will be used in generated documentation.
      */
-    'prefix' => 'api',
+    'prefix' => 'api', // ['api-v1', 'api-v2'],
     
     /**
      * Remove namespaces from sidebar menu.

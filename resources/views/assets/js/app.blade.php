@@ -32,7 +32,7 @@ $(document).ready(function(){
                 if (a.next().is('ul')) {
                     a.next().addClass('open');
                 }
-                window.history.replaceState(null, null, document.location.pathname + '#' + id);
+                window.history.replaceState(null, null, document.location.pathname + document.location.search + '#' + id);
             }
         })
     });

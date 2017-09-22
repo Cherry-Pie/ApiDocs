@@ -12,11 +12,17 @@ class Blueprint
     private $filesystem;
     private $config;
     private $endpoints = [];
+    private $routePrefix;
 
     public function __construct(Factory $filesystem, Config $config)
     {
         $this->filesystem = $filesystem;
         $this->config = $config;
+    }
+    
+    public function setRoutePrefix($routePrefix)
+    {
+        $this->routePrefix = $routePrefix;
     }
     
     public function setEndpoints(array $rawEndpoints)
@@ -36,8 +42,7 @@ class Blueprint
     {
         $host = $this->config->get('yaro.apidocs.blueprint.host');
         if (!$host) {
-            $prefix = $this->config->get('yaro.apidocs.prefix', 'api');
-            $host = url($prefix);
+            $host = url($this->routePrefix);
         }
         
         return view('apidocs::blueprint', [
