@@ -21,22 +21,11 @@
                         &nbsp
                     </p>
                     @endif
-                    <form class="form-horizontal" autocomplete="off" action="{{ url($endpoints['uri']) }}" method="{{ $endpoints['methods'][0] }}" onsubmit="sendRequest(this);return false;">
+                    <form class="form-horizontal" enctype="multipart/form-data" autocomplete="off" action="{{ url($endpoints['uri']) }}" method="{{ $endpoints['methods'][0] }}" onsubmit="sendRequest(this);return false;">
 
                         @foreach ($endpoints['docs']['params'] as $param)
                         @if (!in_array($param['name'], $endpoints['docs']['uri_params']))
-                        <div class="form-group">
-                            <label class="col-sm-1 control-label"><span class="label label-info">{{ $param['type'] }}</span></label>
-                            <label class="col-sm-2 control-label">{{ $param['name'] }}</label>
-                            <div class="col-sm-9">
-                                <input type="text"
-                                class="form-control"
-                                placeholder="{{ $param['description'] }}"
-                                name="{{ $param['name'] }}"
-                                readonly
-                                onfocus="if (this.hasAttribute('readonly')) { this.removeAttribute('readonly'); this.blur(); this.focus(); }">
-                            </div>
-                        </div>
+                            @include('apidocs::input.'. $param['template'])
                         @endif
                         @endforeach
 

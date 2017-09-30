@@ -175,6 +175,7 @@ class ApiDocs
                         'type'        => $paramType,
                         'name'        => $paramName,
                         'description' => implode(' ', $paramChunks),
+                        'template'    => $this->getParamTemplateByType($paramType),
                     ];
                 }
             }
@@ -182,6 +183,26 @@ class ApiDocs
         
         return [$title, $description, $params];
     } // end getRouteDocBlock
+    
+    private function getParamTemplateByType($paramType)
+    {
+        switch ($paramType) {
+            case 'file':
+                return 'file';
+                
+            case 'bool':
+            case 'boolean':
+                return 'boolean';
+                
+            case 'int':
+                return 'integer';
+                
+            case 'text':
+            case 'string':
+            default:
+                return 'string';
+        }
+    } // end getParamTemplateByType
     
     private function getParamChunksFromLine($line)
     {

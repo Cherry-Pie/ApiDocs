@@ -51,72 +51,72 @@ $(document).ready(function(){
 
 function setHeadersCheckboxEvents()
 {
-	$('input[type=checkbox]', '.global-headers-form').change(function() {
-	    recalculateGlobalHeaders();
-	});
+    $('input[type=checkbox]', '.global-headers-form').change(function() {
+        recalculateGlobalHeaders();
+    });
 }
 
 function autocompleteHeaders()
 {
-	$('.req-header').easyAutocomplete({
-		data: [
-			'Accept',
-			'Accept-Charset',
-			'Accept-Encoding',
-			'Accept-Language',
-			'Accept-Datetime',
-			'Access-Control-Request-Method',
-			'Access-Control-Request-Headers',
-			'Authorization',
-			'Cache-Control',
-			'Connection',
-			'Cookie',
-			'Content-Length',
-			'Content-MD5',
-			'Content-Type',
-			'Content-Disposition',
-			'Date',
-			'Expect',
-			'Forwarded',
-			'From',
-			'Host',
-			'If-Match',
-			'If-Modified-Since',
-			'If-None-Match',
-			'If-Range',
-			'If-Unmodified-Since',
-			'Max-Forwards',
-			'Origin',
-			'Pragma',
-			'Proxy-Authorization',
-			'Range',
-			'Referer',
-			'TE',
-			'User-Agent',
-			'Upgrade',
-			'Via',
-			'Warning',
-			'X-Requested-With',
-			'DNT',
-			'X-Forwarded-For',
-			'X-Forwarded-Host',
-			'X-Forwarded-Proto',
-			'Front-End-Https',
-			'X-Http-Method-Override',
-			'X-ATT-DeviceId',
-			'X-Wap-Profile',
-			'Proxy-Connection',
-			'X-UIDH',
-			'X-Csrf-Token',
-			'X-Request-ID',
-			'X-Correlation-ID',
-		],
-		list: {
-	        match: {
-	            enabled: true
-	        }
-	    },
-	});
+    $('.req-header').easyAutocomplete({
+        data: [
+            'Accept',
+            'Accept-Charset',
+            'Accept-Encoding',
+            'Accept-Language',
+            'Accept-Datetime',
+            'Access-Control-Request-Method',
+            'Access-Control-Request-Headers',
+            'Authorization',
+            'Cache-Control',
+            'Connection',
+            'Cookie',
+            'Content-Length',
+            'Content-MD5',
+            'Content-Type',
+            'Content-Disposition',
+            'Date',
+            'Expect',
+            'Forwarded',
+            'From',
+            'Host',
+            'If-Match',
+            'If-Modified-Since',
+            'If-None-Match',
+            'If-Range',
+            'If-Unmodified-Since',
+            'Max-Forwards',
+            'Origin',
+            'Pragma',
+            'Proxy-Authorization',
+            'Range',
+            'Referer',
+            'TE',
+            'User-Agent',
+            'Upgrade',
+            'Via',
+            'Warning',
+            'X-Requested-With',
+            'DNT',
+            'X-Forwarded-For',
+            'X-Forwarded-Host',
+            'X-Forwarded-Proto',
+            'Front-End-Https',
+            'X-Http-Method-Override',
+            'X-ATT-DeviceId',
+            'X-Wap-Profile',
+            'Proxy-Connection',
+            'X-UIDH',
+            'X-Csrf-Token',
+            'X-Request-ID',
+            'X-Correlation-ID',
+        ],
+        list: {
+            match: {
+                enabled: true
+            }
+        },
+    });
 }
 
 function openUl(ul)
@@ -158,7 +158,10 @@ function sendRequest(form)
         url : $section.find('.action-url').val(),
         headers: headers,
         type : $form.attr('method'),
-        data : $form.serializeArray(),
+        data : new FormData(form),
+        cache: false,
+        processData: false,
+        contentType: false, 
         success : function(response, status, xhr) {
             $btn.text('Send').attr('disabled', false);
             $section.find('.method-example-endpoint code.response-content.response-highlighted').jsonViewer(response); 
@@ -247,29 +250,29 @@ function changeSourceView(ctx)
 
 function addNewHeaderInput(ctx)
 {
-	$(ctx).closest('.form-group').before($('#header-row-template').html());
-	setHeadersCheckboxEvents();
-	autocompleteHeaders();
-	recalculateGlobalHeaders();
+    $(ctx).closest('.form-group').before($('#header-row-template').html());
+    setHeadersCheckboxEvents();
+    autocompleteHeaders();
+    recalculateGlobalHeaders();
 }
 
 function removeNewHeaderInput(ctx)
 {
-	$(ctx).closest('.form-group').remove();
-	recalculateGlobalHeaders();
+    $(ctx).closest('.form-group').remove();
+    recalculateGlobalHeaders();
 }
 
 function recalculateGlobalHeaders()
 {
-	var count = 0;
-	$('.global-headers-form .form-group').not('.except').each(function(key, element) {
+    var count = 0;
+    $('.global-headers-form .form-group').not('.except').each(function(key, element) {
         var $el = $(element);
         if ($el.find('.req-header-active').is(':checked')) {
             count++;
         }
     });
     
-	$('.global-headers-count').text(count);
+    $('.global-headers-count').text(count);
 }
 
 function showGlobalHeaders(ctx)
