@@ -10,6 +10,16 @@
             "Yaro\\ApiDocs\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Yaro\ApiDocs\ServiceProvider"
+            ],
+            "aliases": {
+                "ApiDocs": "Yaro\ApiDocs\Facade"
+            }
+        }
+    },
     "license": "MIT",
     "authors": [
         {
