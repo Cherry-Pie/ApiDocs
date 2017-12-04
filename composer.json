@@ -13,10 +13,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Yaro\ApiDocs\ServiceProvider"
+                "Yaro\\ApiDocs\\ServiceProvider"
             ],
             "aliases": {
-                "ApiDocs": "Yaro\ApiDocs\Facade"
+                "ApiDocs": "Yaro\\ApiDocs\\Facade"
             }
         }
     },
