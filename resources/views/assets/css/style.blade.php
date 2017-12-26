@@ -2139,4 +2139,12 @@ label>span {
     background: #ffffff;
     overflow-y: overlay;
 }
+
+.label.label-warning {
+    white-space: initial;
+    word-break: break-word;
+    line-height: 10px;
+    text-align: left;
+    display: inline-block;
+}
 </style>

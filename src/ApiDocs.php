@@ -46,7 +46,7 @@ class ApiDocs
     private function getEndpoints($routePrefix)
     {
         $endpoints = [];
-        
+
         foreach ($this->router->getRoutes() as $route) {
             if (!$this->isPrefixedRoute($route, $routePrefix) || $this->isClosureRoute($route) || $this->isExcluded($route)) {
                 continue;
@@ -59,7 +59,8 @@ class ApiDocs
             if (!class_exists($class) || !method_exists($class, $method)) {
                 continue;
             }
-            
+
+
             list($title, $description, $params) = $this->getRouteDocBlock($class, $method);
             $key = $this->generateEndpointKey($class);
             
@@ -76,7 +77,7 @@ class ApiDocs
                 ],
             ];
         }
-        
+
         return $endpoints;
     } // end getEndpoints
     
@@ -144,13 +145,14 @@ class ApiDocs
     private function getRouteDocBlock($class, $method)
     {
         $reflector = new ReflectionClass($class);
-        
+
         $title = implode(' ', $this->splitCamelCaseToWords($method));
         $title = ucfirst(strtolower($title));
         $description = '';
         $params = [];
-            
-        $docs = explode("\n", $reflector->getMethod($method)->getDocComment());
+
+        $reflectorMethod = $reflector->getMethod($method);
+        $docs = explode("\n", $reflectorMethod->getDocComment());
         $docs = array_filter($docs);
         if (!$docs) {
             return [$title, $description, $params];
@@ -180,6 +182,29 @@ class ApiDocs
                 }
             }
         }
+
+        // TODO:
+        $rules = [];
+        foreach($reflectorMethod->getParameters() as $reflectorParam) {
+            $paramClass = $reflectorParam->getClass();
+            if ($paramClass instanceof ReflectionClass) {
+                $name = $paramClass->getName();
+                $paramClassInstance = new $name;
+                if (is_a($paramClassInstance, Request::class) && method_exists($paramClassInstance, 'rules')) {
+                    $paramClassInstance->__apidocs = true;
+                    $rules = $paramClassInstance->rules();
+                }
+            }
+        }
+        foreach ($params as $name => $param) {
+            $params[$name]['rules'] = $rules[$name] ?? [];
+            if (is_string($params[$name]['rules'])) {
+                $params[$name]['rules'] = explode('|', $params[$name]['rules']);
+            } elseif (is_array($params[$name]['rules'])) {
+                $params[$name]['rules'] = $params[$name]['rules'];
+            }
+        }
+
         
         return [$title, $description, $params];
     } // end getRouteDocBlock
