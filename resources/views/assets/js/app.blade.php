@@ -158,7 +158,7 @@ function sendRequest(form)
         url : $section.find('.action-url').val(),
         headers: headers,
         type : $form.attr('method'),
-        data : new FormData(form),
+        data : $form.attr('method') == 'GET' ? $form.serializeArray() : new FormData(form),
         cache: false,
         processData: false,
         contentType: false, 
