@@ -128,17 +128,6 @@ function openUl(ul)
     }
 }
 
-function serialize(obj) 
-{
-    var str = [];
-    for (var p in obj) {
-        if (obj.hasOwnProperty(p)) {
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        }
-    }
-    return str.join("&");
-}
-
 function sendRequest(form) 
 {
     $('#toggle-lang-response').trigger('click');
@@ -169,7 +158,7 @@ function sendRequest(form)
         url : $section.find('.action-url').val(),
         headers: headers,
         type : $form.attr('method'),
-        data : $form.attr('method') == 'GET' ? serialize($form.serializeArray()) : new FormData(form),
+        data : $form.attr('method') == 'GET' ? $form.serialize() : new FormData(form),
         cache: false,
         processData: false,
         contentType: false, 
