@@ -196,6 +196,9 @@ class ApiDocs
                 }
             }
         }
+
+        $params = $this->fillParamsWithRequestRules($params, $rules);
+
         foreach ($params as $name => $param) {
             $params[$name]['rules'] = $rules[$name] ?? [];
             if (is_string($params[$name]['rules'])) {
@@ -205,9 +208,26 @@ class ApiDocs
             }
         }
 
-        
         return [$title, $description, $params];
     } // end getRouteDocBlock
+
+    private function fillParamsWithRequestRules($params, $rules)
+    {
+        foreach ($rules as $paramName => $rule) {
+            if (isset($params[$paramName])) {
+                continue;
+            }
+
+            $params[$paramName] = [
+                'type'        => 'string',
+                'name'        => $paramName,
+                'description' => '',
+                'template'    => $this->getParamTemplateByType('string'),
+            ];
+        }
+
+        return $params;
+    }
     
     private function getParamTemplateByType($paramType)
     {
