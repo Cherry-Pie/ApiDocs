@@ -28,7 +28,7 @@ class BasicAuth
             $request->getPassword()
         ];
         
-        return !$authorized->contains($credentials);
+        return $authorized->contains($credentials);
     }
     
 }
