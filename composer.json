@@ -3,7 +3,7 @@
     "description": "Api documentation generator for Laravel 5",
     "keywords": ["laravel", "api", "docs", "documentation", "blueprint", "api blueprint"],
     "require": {
-        "illuminate/support": "5.*"
+        "illuminate/support": "5.*|6.*|7.*"
     },
     "autoload": {
         "psr-4": {
